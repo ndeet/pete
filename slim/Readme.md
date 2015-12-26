@@ -11,3 +11,9 @@ Other projects:
 <a href="https://github.com/ndeet/pete-phoenix">Pete Phoenix</a>   
 <a href="https://github.com/ndeet/pete-slim">Pete Slim</a>    
 <a href="https://github.com/ndeet/pete-phalcon">Pete Phalcon</a>    
+
+
+### How to run ###
+1. Clone this repository (all vendor commited, so ready to go)  
+   
+* Official website: http://www.slimframework.com/
