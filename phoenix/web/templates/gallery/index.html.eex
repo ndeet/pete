@@ -1,0 +1,8 @@
+<div class="headline">
+  <h2>Hello World Gallery site on</h2>
+</div>
+<div class="gallery-container">
+  <%= for image <- images do %>
+    <%= render "image.html", %{ conn: @conn, image: image} %>
+  <% end %>
+</div>

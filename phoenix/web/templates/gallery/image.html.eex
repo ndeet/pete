@@ -1,0 +1,4 @@
+<div class="image">
+  <img src="<%= static_path(@conn, "/images/") <> elem(@image, 0) <> ".jpg" %>" />
+  Image source: <a href="<%= elem(@image, 1) %>" target="_blank"><%= elem(@image, 1) %></a>
+</div>
