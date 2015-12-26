@@ -6,6 +6,7 @@ use Phalcon\Mvc\Application;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
+use Phalcon\Mvc\View\Engine\Volt;
 
 try {
 
@@ -13,7 +14,6 @@ try {
   $loader = new Loader();
   $loader->registerDirs(array(
     '../app/controllers/',
-    '../app/models/'
   ))->register();
 
   // Create a DI
@@ -23,13 +23,31 @@ try {
   $di->set('view', function () {
     $view = new View();
     $view->setViewsDir('../app/views/');
+
+    $view->registerEngines(
+      array(
+        ".html" => function ($view, $di) {
+          $volt = new Volt($view, $di);
+
+          $volt->setOptions(
+            array(
+              "compiledPath"  => "../cache/",
+              "compileAlways" => FALSE
+            )
+          );
+
+          return $volt;
+        }
+      )
+    );
+
     return $view;
   });
 
   // Setup a base URI so that all generated URIs include the "tutorial" folder
   $di->set('url', function () {
     $url = new UrlProvider();
-    $url->setBaseUri('/tutorial/');
+    $url->setBaseUri('/');
     return $url;
   });
 
