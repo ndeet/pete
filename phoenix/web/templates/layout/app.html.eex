@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Performance Test Phoenix!</title>
+    <title>Performance Test: Phoenix Framework</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -15,25 +15,20 @@
     <div class="container">
       <header class="header">
         <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://github.com/ndeet/pete-phoenix">Gitbub project</a></li>
-          </ul>
+            <a href="http://github.com/ndeet/pete-phoenix">This project on Github</a>
         </nav>
       </header>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
 
       <footer>
-        <a href="https://github.com/ndeet/pete-phoenix">Pete Phoenix</a>
-        <a href="https://github.com/ndeet/pete-slim">Pete Slim</a>
+        All PeTe projects on Github:
+        <a href="https://github.com/ndeet/pete-phoenix">Pete Phoenix</a> |
+        <a href="https://github.com/ndeet/pete-slim">Pete Slim</a> |
         <a href="https://github.com/ndeet/pete-phalcon">Pete Phalcon</a>
       </footer>
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    </div>
   </body>
 </html>

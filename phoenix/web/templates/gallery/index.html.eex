@@ -1,5 +1,5 @@
 <div class="headline">
-  <h2>Hello World Gallery site on</h2>
+  <h1>PeTe Gallery</h1>
 </div>
 <div class="gallery-container">
   <%= for image <- images do %>
