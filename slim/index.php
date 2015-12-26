@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 // Create container
 $configuration = [
   'settings' => [
-    'displayErrorDetails' => true,
+    'displayErrorDetails' => false,
   ],
 ];
 $container = new \Slim\Container($configuration);
@@ -13,7 +13,7 @@ $container = new \Slim\Container($configuration);
 $container['view'] = function ($c) {
   $view = new \Slim\Views\Twig('templates', [
     'cache' => 'cache',
-    'auto_reload' => true,
+    //'auto_reload' => true,
   ]);
   $view->addExtension(new \Slim\Views\TwigExtension(
     $c['router'],
