@@ -1,0 +1,16 @@
+{% extends "app.html" %}
+
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ parent() }}
+{% endblock %}
+{% block content %}
+<div class="headline">
+  <h2>PeTe Gallery</h2>
+</div>
+<div class="gallery-container">
+  {% for name,url in images %}
+    {% include 'image.html' with {'name': name, 'url': url} %}
+  {% endfor %}
+</div>
+{% endblock %}
