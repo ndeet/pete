@@ -1,0 +1,12 @@
+{% extends "app.html" %}
+
+{% block content %}
+<div class="headline">
+  <h1>PeTe Gallery</h1>
+</div>
+<div class="gallery-container">
+  {% for name,url in images %}
+  {% include "gallery/image.html" %}
+  {% endfor %}
+</div>
+{% endblock %}
