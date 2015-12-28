@@ -10,7 +10,4 @@ defmodule PetePhoenix.GalleryView do
     ]
   end
 
-  def image_link(link) do
-
-  end
 end
