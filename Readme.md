@@ -51,7 +51,7 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host/gallery
 
 ### Detailed results ###
 #### Phoenix Framework (Elixir) ####
-Erlang OTP 18, Elixir 1.1.1, Phoenix 1.1.0    
+Erlang OTP 18, Elixir 1.1.1, Phoenix 1.1.0 (Precompiled)   
 ```
 $ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phoenix.pi:4001/gallery
 Running 1m test @ http://pete-phoenix.pi:4001/gallery
