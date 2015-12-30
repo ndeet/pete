@@ -45,8 +45,8 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host/gallery
 ### Testing summary ###
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
+| Phoenix        |            574.77  |          173.51  |         15.18  |
 | Phalcon        |            521.19  |          191.40  |         17.77  |
-| Phoenix        |            509.88  |          195.78  |         16.68  |
 | Slim (PHP 5.6) |            117.72  |          844.07  |        101.49  |
 | Slim (PHP 7.0) |             27.71  |        >3500.00  |        553.34  |
 
@@ -58,11 +58,11 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phoenix.pi:4001/gallery
 Running 1m test @ http://pete-phoenix.pi:4001/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   195.78ms   16.68ms 611.53ms   75.70%
-    Req/Sec   127.97     31.44   240.00     67.94%
-  30604 requests in 1.00m, 61.18MB read
-Requests/sec:    509.88
-Transfer/sec:      1.02MB
+    Latency   173.51ms   15.18ms 751.33ms   74.47%
+    Req/Sec   144.54     32.78   232.00     62.83%
+  34543 requests in 1.00m, 65.03MB read
+Requests/sec:    574.77
+Transfer/sec:      1.08MB
 ```
 Looks like a really good result right? Let's see how a not compiled framework like Slim Framework handles the task.
 
