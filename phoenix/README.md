@@ -1,26 +1,28 @@
-##Pete Project: Phoenix Framework##
+##Pete Project: Phoenix Framework (Elixir)##
 
 The why, what and how can be found here:    
-[Pete Info](https://gist.github.com/ndeet/843cfaedd8be05101b8c#file-pete-info-md)
+[Pete Info](../Readme.md)
 
-This is a simple Slim app with some twig templates and a view to display some images.
-The goal is to compare the performance of this framework with a similar app using 
-Phalcon Framework and written in Elixir, using Phoenix Framework.   
-
-Other projects:    
-<a href="https://github.com/ndeet/pete-phoenix">Pete Phoenix</a>   
-<a href="https://github.com/ndeet/pete-slim">Pete Slim</a>    
-<a href="https://github.com/ndeet/pete-phalcon">Pete Phalcon</a>    
-
-
+This is a simple Phoenix framework app with some eex templates and a view to display some images.
+The goal is to compare the performance of this framework with a similar app using other frameworks.
+ 
 ### How to run ###
-To start your Phoenix app:
-  1. Install dependencies with `mix deps.get`
-  2. Start Phoenix endpoint with `mix phoenix.server`
+To start your Phoenix app:    
+```
+# Initial setup
+$ mix deps.get --only prod
+$ MIX_ENV=prod mix compile
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+# Compile assets (optional they are committed in the repository)
+$ brunch build --production
+$ MIX_ENV=prod mix phoenix.digest
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+# Finally run the server
+$ PORT=4001 MIX_ENV=prod elixir mix phoenix.server
 
+# Visit http://ip-or-host.tld:4001/gallery in browser.
+```
+
+Check also deployment guide [deployment guides](http://www.phoenixframework.org/docs/deployment).
 
 * Official website: http://www.phoenixframework.org/
