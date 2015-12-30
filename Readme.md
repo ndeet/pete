@@ -33,7 +33,8 @@ For really deploying it and run it on production systems I also want to somehow 
 
 ## Test Results ##
 One nice thing about the Raspberry Pi is that the hardware is pretty the same and results can be reproduced.    
-Hardware: Raspberry Pi 2 (4 cores, 1 GB Ram) Raspbian Jessie
+Hardware: Raspberry Pi 2 (4 cores, 1 GB Ram) Raspbian Jessie    
+Network connection through 1Gbs RasPi <-> Router <-> USB dongle Macbook Pro   
 
 ### Testing using wrk ###
 Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this command:    
