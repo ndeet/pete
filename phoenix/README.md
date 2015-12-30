@@ -18,8 +18,9 @@ $ brunch build --production
 $ MIX_ENV=prod mix phoenix.digest
 
 # Finally run the server
-$ MIX_ENV=prod mix compile.protocols
-$ MIX_ENV=prod PORT=4001 elixir -pa _build/prod/consolidated -S mix phoenix.server
+$ MIX_ENV=prod PORT=4001 mix phoenix.server
+# (optional) run server in background
+$ MIX_ENV=prod PORT=4001 elixir --detached -S mix phoenix.server
 
 # Visit http://ip-or-host.tld:4001/gallery in browser.
 ```
