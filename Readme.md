@@ -7,7 +7,7 @@ Learning new languages like Elixir alone is already exciting but make it a bit m
 Because I'm a PHP (mostly Drupal) guy and just discovered Elixir I want to take it as opportunity to learn functional programming paradigms but also see how Elixir's (Erlang) concurrency model speeds out our traditional languages such as PHP. Therefore I took the Elixir web framework Phoenix Framework and try to compare it in a similar structure and setup to Slim Framework (PHP) and Phalcon (PHP as C extension) and see how the performance differs.
 
 ## What ##
-I choose to do a very simplistic gallery app (no this has nothing to do because I play with my raspberry pi camera these holidays).
+I choose to do a very simplistic gallery app (no, this has nothing to do because I play with my raspberry pi camera these holidays).
 
 ### Requriements ###
 Image gallery:       
@@ -45,23 +45,23 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host/gallery
 ### Testing summary ###
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
-| Phoenix        |            574.77  |          173.51  |         15.18  |
+| Phoenix        |            575.23  |          173.46  |         12.52  |
 | Phalcon        |            521.19  |          191.40  |         17.77  |
 | Slim (PHP 5.6) |            117.72  |          844.07  |        101.49  |
 | Slim (PHP 7.0) |             27.71  |        >3500.00  |        553.34  |
 
 ### Detailed results ###
 #### Phoenix Framework (Elixir) ####
-Erlang OTP 18, Elixir 1.1.1, Phoenix 1.1.0 (Precompiled)   
+Erlang OTP 18, Elixir 1.2.0, Phoenix 1.1.0 (Precompiled)   
 ```
 $ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phoenix.pi:4001/gallery
 Running 1m test @ http://pete-phoenix.pi:4001/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   173.51ms   15.18ms 751.33ms   74.47%
-    Req/Sec   144.54     32.78   232.00     62.83%
-  34543 requests in 1.00m, 65.03MB read
-Requests/sec:    574.77
+    Latency   173.46ms   12.52ms 261.63ms   71.21%
+    Req/Sec   144.51     28.08   230.00     70.79%
+  34569 requests in 1.00m, 65.08MB read
+Requests/sec:    575.23
 Transfer/sec:      1.08MB
 ```
 Looks like a really good result right? Let's see how a not compiled framework like Slim Framework handles the task.
@@ -117,8 +117,12 @@ will come near Phoenix, but Phalcon is even faster as it is partly compiled.
 
 
 ## Credits / Inspiration ##  
-I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.
+I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.    
 http://blog.onfido.com/using-cpus-elixir-on-raspberry-pi2/    
-(title is a bit misleading because also PHP with FPM uses all CPUs pretty much, but more to that in a blog post)    
+(title is a bit misleading because also PHP with FPM uses all CPUs pretty much, but more to that in a blog post)   
+ 
+Comparison from Chris McCord (creator of Phoenix) with Ruby:     
 http://www.littlelines.com/blog/2014/07/08/elixir-vs-ruby-showdown-phoenix-vs-rails/    
+
+Followup to above mentioned comparison but extended to Go, Ruby, NodeJS frameworks:   
 https://github.com/mroth/phoenix-showdown      
