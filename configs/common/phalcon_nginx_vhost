@@ -1,0 +1,46 @@
+## file location: /etc/nginx/sites-available/phalcon
+
+server {
+    listen 80; # IPv4
+
+    ## Internal domain or _ to match all.
+    server_name pete-phalcon.pi;
+
+    client_max_body_size	100M;
+
+    ## Access and error logs.
+    # Disable access log to not interfere performance on many requests.
+    #access_log /var/log/nginx/phalcon-access.log;
+    error_log /var/log/nginx/phalcon-error.log;
+
+    ## Filesystem root of the site and index.
+    root /var/www/pete/phalcon/public;
+    index index.php;
+
+    try_files $uri $uri/ @rewrite;
+
+    location @rewrite {
+      rewrite ^(.*)$ /index.php?_url=$1;
+    }
+
+    # Directives to send expires headers and turn off 404 error logging.
+    location ~* ^.+\.(ogg|ogv|svg|svgz|eot|otf|woff|mp4|ttf|rss|atom|jpg|jpeg|gif|png|ico|zip|tgz|gz|rar|bz2|doc|xls|exe|ppt|tar|mid|midi|wav|bmp|rtf)$ {
+      access_log off; log_not_found off; expires max;
+    }
+
+    location ~ \.php$ {
+	  include fastcgi_params;
+      fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+      fastcgi_intercept_errors on;
+	  fastcgi_pass unix:/var/run/php5-fpm.sock;
+	  ## PHP 7 fpm socket. Commented as we use the PHP 5 socket above.
+	  #fastcgi_pass unix:/var/run/php7-fpm.sock;
+
+	  ## Used TCP connection before but ran into open ports issue. You will need
+	  ## to adjust phpX-fpm/www.conf (listen) to match this.
+      #fastcgi_pass   127.0.0.1:9000; #php 5.6
+	  #fastcgi_pass	127.0.0.1:8999; #php 7.0.1
+    }
+
+    fastcgi_keep_conn on; # keep alive to the FCGI upstream
+}
