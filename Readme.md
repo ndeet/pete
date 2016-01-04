@@ -7,7 +7,8 @@ Learning new languages like Elixir alone is already exciting but make it a bit m
 Because I'm a PHP (mostly Drupal) guy and just discovered Elixir I want to take it as opportunity to learn functional programming paradigms but also see how Elixir's (Erlang) concurrency model speeds out our traditional languages such as PHP. Therefore I took the Elixir web framework Phoenix Framework and try to compare it in a similar structure and setup to Slim Framework (PHP) and Phalcon (PHP as C extension) and see how the performance differs.
 
 ## What ##
-I choose to do a very simplistic gallery app (no, this has nothing to do because I play with my raspberry pi camera these holidays).
+I choose to do a very simplistic gallery app, with no model and database backend. 
+Only router, controller, view and templates are used.
 
 ### Requriements ###
 Image gallery:       
@@ -18,31 +19,30 @@ Image gallery:
 - No model and database backend (only controller / view / templates)    
 
 ### Framworks ###
-- Phoenix Framework (Elixir)    
-- SlimPHP (PHP)    
-- Phalcon (PHP, as compiled C extension)    
+- [Phoenix Framework (Elixir)](http://www.phoenixframework.org/)    
+- [SlimPHP (PHP)](http://www.slimframework.com/)    
+- [Phalcon (PHP, as compiled C extension)](https://phalconphp.com/en)    
 
 
 ## How ##
 I'm not familar with any of the frameworks I have chosen here, so bare with me if some structure is a complete mess :)
 
-See subdirectories for specific information.
-
-Todo:
-For really deploying it and run it on production systems I also want to somehow deploy it with Docker or similar to get it installed fast on different VMs on DigitalOcean and/or AWS.
+See subdirectories for framework specific information.
 
 ## Test Results ##
-One nice thing about the Raspberry Pi is that the hardware is pretty the same and results can be reproduced.    
-Hardware: Raspberry Pi 2 (4 cores, 1 GB Ram) Raspbian Jessie    
-Network connection through 1Gbs RasPi <-> Router <-> USB dongle Macbook Pro   
+I made multiple test runs on Raspberry Pi 2 (4 cores) and some Digitalocean VMs 
+with 2 and 12 cores to check how the frameworks deal with multiple cores and concurrency.
 
 ### Testing using wrk ###
-Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this command:    
+Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this or similar command:    
 ```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host/gallery
+$ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host.tld/gallery
 ```
 
-### Testing summary ###
+### Testing summary: Raspberry Pi 2 (Model B) ###
+One nice thing about the Raspberry Pi is that the hardware is cheap and easy to 
+get and test results can (hopefully) be reproduced and compared easier.           
+
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
 | Phoenix        |            575.23  |          173.46  |         12.52  |
@@ -50,78 +50,87 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host/gallery
 | Slim (PHP 5.6) |            117.72  |          844.07  |        101.49  |
 | Slim (PHP 7.0) |             27.71  |        >3500.00  |        553.34  |
 
-### Detailed results ###
-#### Phoenix Framework (Elixir) ####
-Erlang OTP 18, Elixir 1.2.0, Phoenix 1.1.0   
-```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phoenix.pi:4001/gallery
-Running 1m test @ http://pete-phoenix.pi:4001/gallery
-  4 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   173.46ms   12.52ms 261.63ms   71.21%
-    Req/Sec   144.51     28.08   230.00     70.79%
-  34569 requests in 1.00m, 65.08MB read
-Requests/sec:    575.23
-Transfer/sec:      1.08MB
-```
-Looks like a really good result right? Let's see how a not compiled framework like Slim Framework handles the task.
+Detailed results and specs: [results--raspberry-pi2.md](results--raspberry-pi2.md)
 
-#### Slim Framework (PHP) ####
-PHP 5.6.14-0+deb8u1 as FPM, Nginx 1.6.2
-```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-slim.pi/gallery
-Running 1m test @ http://pete-slim.pi/gallery
-  4 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   844.07ms  101.49ms   1.25s    57.28%
-    Req/Sec    31.25     18.32   118.00     66.15%
-  7072 requests in 1.00m, 12.30MB read
-Requests/sec:    117.72
-Transfer/sec:    209.70KB
-```
-Yep, pretty poor, nearly 5 times slower than Elixir. Ok, PHP 7 should be twice as 
-fast, so I compiled it on the Raspberry Pi but the results where even poorer (maybe I missed something?):    
+### Testing summary: Virtual Machine with 2 cores ###
+Basic digitalocean VM with SSD and 2 cores, 2gb ram          
 
-PHP 7.0.1 as FPM, Nginx 1.6.2 
-```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-slim.pi/gallery
-Running 1m test @ http://pete-slim.pi/gallery
-  4 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency     3.50s   553.34ms   4.22s    93.33%
-    Req/Sec     9.26      6.17    40.00     67.55%
-  1665 requests in 1.00m, 2.94MB read
-Requests/sec:     27.71
-Transfer/sec:     50.04KB
-```
-Holy s..., that's really a bad performance for PHP 7. I expected 1.5 to 2x improvement 
-towards PHP 5.6. I also wanted to try HHVM to compare but it seems not compile on ARM (Raspberry Pi).
+Pretty interesting that with fewer cores Phoenix is close but does not take the 
+crown this time. 
 
-Ok, not expecting much from Phalcon but what followed was really a big suprise, see below.
+| Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
+| :------------- | -----------------: | ---------------: | -------------: |
+| Phalcon        |           1452.98  |           68.22  |         16.49  |
+| Phoenix        |           1178.11  |           83.64  |         35.18  |
+| Slim (PHP 7.0) |           1160.71  |           85.52  |         12.60  |
+| Slim (PHP 5.6) |            719.81  |          138.08  |         15.72  |
 
-#### Phalcon Framework (a PHP C extension) ####
-PHP 5.6.14-0+deb8u1 as FPM, Nginx 1.6.2
+Detailed results and specs: [results--2-core-vm.md](results--2-core-vm.md)
+
+But now time to get really into multi core business and see who can handle concurrency best:
+
+### Testing summary: Virtual Machine with 12 cores ###
+App VM: Digitalocean VM with SSD and 12 cores, 32gb RAM
+Benchmark VM: Digitalocean VM with SSD and 4 cores, 8 gb RAM
+Connected over 1 Gb/s
+
+We do the same number of connections but with more threads first, then let's try
+something insane and quadruple the number of connections and see what happens.
+
 ```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phalcon.pi/gallery
-Running 1m test @ http://pete-phalcon.pi/gallery
-  4 threads and 100 connections
-  Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   191.42ms   17.77ms 415.41ms   82.85%
-    Req/Sec   130.87     28.42   220.00     62.89%
-  31322 requests in 1.00m, 55.14MB read
-Requests/sec:    521.19
-Transfer/sec:      0.92MB
+# ./wrk -t12 -c100 -d60s --timeout 1000   
 ```
-This is really amazing, never thought that any PHP framework (as they are not compiled)
-will come near Phoenix, but Phalcon is even faster as it is partly compiled.
+| Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
+| :------------- | -----------------: | ---------------: | -------------: |
+| Phalcon        |           8269.46  |           12.54  |          9.71  |
+| Slim (PHP 7.0) |           4937.27  |           19.75  |          8.71  |
+| Phoenix *      |           3065.37  |           31.29  |          7.04  |
+| Slim (PHP 5.6) |           2619.17  |           36.95  |         11.61  |
+
+* I don't know why yet but Phoenix (Erlang VM) somehow seem to not use the full potential 
+and resources of the VM. Even Slim (not compiled in any way) can catch up near Phoenix... see detailed results for more comments.
 
 
-## Credits / Inspiration ##  
+Ok, get a bit extreme and throw 12 threads with 400 connections onto the app server:   
+```
+# ./wrk -t12 -c400 -d180s --timeout 1000   
+```
+| Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
+| :------------- | -----------------: | ---------------: | -------------: |
+| Phoenix        |           3153.33  |          125.44  |         19.75  |
+| Phalcon        |                 -  |               -  |             -  |
+| Slim (PHP 7.0) |                 -  |               -  |             -  |
+| Slim (PHP 5.6) |                 -  |               -  |             -  |
+
+Even though Phoenix still not using all system ressources (system load 7-8) it is the
+only framework which handles all requests without error. The PHP frameworks even unable
+to handle 200 connections without erros and bad requests. So this is really a big point for
+Phoenix as the site is even with 400 connections always available and fast.
+
+Detailed results, specs and comments: [results--12-core-vm.md](results--12-core-vm.md)
+
+
+## Configuration ##
+Some configs for PHP and Nginx can be found in ```configs``` directory:    
+
+**Raspberry PI + 2 core VM configs for Nginx + PHP-FPM pool:**    
+[configs/raspberry-pi2/nginx.conf](configs/raspberry-pi2/nginx.conf)      
+[configs/raspberry-pi2/php-fpm_pool.d_www.conf](configs/raspberry-pi2/php-fpm_pool.d_www.conf)     
+
+**12 Core VM**
+[configs/big-machine/nginx.conf](configs/big-machine/nginx.conf)      
+[configs/big-machine/php-fpm_pool.d_www.conf](configs/big-machine/php-fpm_pool.d_www.conf)    
+
+**Common configs (Nginx vhosts used an all testsystems):**     
+[configs/common/phalcon_nginx_vhost](configs/common/phalcon_nginx_vhost)        
+[configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
+
+## Credits & inspiration ##  
 I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.    
 http://blog.onfido.com/using-cpus-elixir-on-raspberry-pi2/    
 (title is a bit misleading because also PHP with FPM uses all CPUs pretty much, but more to that in a blog post)   
  
-Comparison from Chris McCord (creator of Phoenix) with Ruby:     
+Comparison from Chris McCord (creator of Phoenix) with Rails:     
 http://www.littlelines.com/blog/2014/07/08/elixir-vs-ruby-showdown-phoenix-vs-rails/    
 
 Followup to above mentioned comparison but extended to Go, Ruby, NodeJS frameworks:   
