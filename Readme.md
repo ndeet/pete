@@ -39,6 +39,11 @@ Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this or similar
 $ wrk -t4 -c100 -d60s --timeout 2000 http://ip-or-host.tld/gallery
 ```
 
+### Language versions used for frameworks ###
+PHP 5: PHP 5.6.14-0-deb8u1 as PHP-FPM, OPcache enabled, Nginx 1.6.2    
+PHP 7: PHP 7.0.1 (self compiled) as PHP-FPM, OPcache enabled, Nginx 1.6.2    
+Phoenix: Erlang 18.2.1 (SMP + hipe enabled), Elixir 1.2.0, Phoenix 1.1.0       
+
 ### Testing summary: Raspberry Pi 2 (Model B) ###
 One nice thing about the Raspberry Pi is that the hardware is cheap and easy to 
 get and test results can (hopefully) be reproduced and compared easier.           
@@ -124,6 +129,8 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 **Common configs (Nginx vhosts used an all testsystems):**     
 [configs/common/phalcon_nginx_vhost](configs/common/phalcon_nginx_vhost)        
 [configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
+[configs/common/php.ini](configs/common/php.ini) (default PHP 5.6.14 php fpm ini shipping w Debian 8.2)   
+[configs/common/phpinfo.html](configs/common/phpinfo.html)   
 
 ## Credits / inspiration  
 I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.    
