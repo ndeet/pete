@@ -5,7 +5,7 @@ App VM: [Digitalocean VM 12-cores, 32gb RAM](https://www.digitalocean.com/pricin
 Benchmark VM: Digitalocean VM 4-cores, 8gb RAM
 Network: 1 Gb/s on digitalocean, wrk instance with 4 cores and 8gb ram even on digitalocean with 1 Gb/s to really squeeze the server out    
 OS: Debian Jessie 8.2 
-Phoenix stack: Erlang 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
+Phoenix stack: Erlang 18.2.1 (SMP + hipe enabled), Elixir 1.2.0, Phoenix 1.1.0   
 PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache enabled, Nginx 1.6.2    
 (configs optimized for big machines ```configs/big-machine``` directory)
 

@@ -2,7 +2,7 @@
 Hardware: Raspberry Pi 2 (4 cores, 1 GB Ram) [Hardware specs](https://www.raspberrypi.org/products/raspberry-pi-2-model-b/)    
 Network: connection through 100 Mbit RasPi <-> Router <-> USB dongle Macbook Pro    
 OS: Debian Jessie 8 (4.1.13-v7+) ARM   
-Phoenix stack: Erlang 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
+Phoenix stack: Erlang 18.2.1 (SMP + hipe enabled), Elixir 1.2.0, Phoenix 1.1.0   
 PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache enabled, Nginx 1.6.2    
 (see also ```configs/raspberry-pi2``` directory)
 

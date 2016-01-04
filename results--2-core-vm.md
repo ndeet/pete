@@ -3,7 +3,7 @@
 Hardware: [Digitalocean VM 2-cores, 2gb RAM](https://www.digitalocean.com/pricing)    
 Network: 1 Gb/s on digitalocean, 30 mbit on my side    
 OS: Debian Jessie 8.2 
-Phoenix stack: Erlang 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
+Phoenix stack: Erlang 18.2.1 (SMP + hipe enabled), Elixir 1.2.0, Phoenix 1.1.0   
 PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache enabled, Nginx 1.6.2    
 (configs same as ```configs/raspberry-pi2``` directory)
 
