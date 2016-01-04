@@ -70,7 +70,7 @@ Detailed results and specs: [results--2-core-vm.md](results--2-core-vm.md)
 But now time to get really into multi core business and see who can handle concurrency best:
 
 ### Testing summary: Virtual Machine with 12 cores ###
-App VM: Digitalocean VM with SSD and 12 cores, 32gb RAM
+App VM: Digitalocean VM with SSD and 12 cores, 32gb RAM     
 Benchmark VM: Digitalocean VM with SSD and 4 cores, 8 gb RAM
 Connected over 1 Gb/s
 
@@ -87,10 +87,10 @@ something insane and quadruple the number of connections and see what happens.
 | Phoenix *      |           3065.37  |           31.29  |          7.04  |
 | Slim (PHP 5.6) |           2619.17  |           36.95  |         11.61  |
 
-* I don't know why yet but Phoenix (Erlang VM) somehow seem to not use the full potential 
+\* I don't know why yet but Phoenix (Erlang VM) somehow seem to not use the full potential 
 and resources of the VM. Even Slim (not compiled in any way) can catch up near Phoenix... see detailed results for more comments.
-
-
+   
+   
 Ok, get a bit extreme and throw 12 threads with 400 connections onto the app server:   
 ```
 # ./wrk -t12 -c400 -d180s --timeout 1000   
@@ -117,7 +117,7 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 [configs/raspberry-pi2/nginx.conf](configs/raspberry-pi2/nginx.conf)      
 [configs/raspberry-pi2/php-fpm_pool.d_www.conf](configs/raspberry-pi2/php-fpm_pool.d_www.conf)     
 
-**12 Core VM**
+**12 Core VM**    
 [configs/big-machine/nginx.conf](configs/big-machine/nginx.conf)      
 [configs/big-machine/php-fpm_pool.d_www.conf](configs/big-machine/php-fpm_pool.d_www.conf)    
 
@@ -125,7 +125,7 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 [configs/common/phalcon_nginx_vhost](configs/common/phalcon_nginx_vhost)        
 [configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
 
-## Credits & inspiration ##  
+## Credits \/ inspiration ##  
 I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.    
 http://blog.onfido.com/using-cpus-elixir-on-raspberry-pi2/    
 (title is a bit misleading because also PHP with FPM uses all CPUs pretty much, but more to that in a blog post)   
