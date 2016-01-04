@@ -125,7 +125,7 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 [configs/common/phalcon_nginx_vhost](configs/common/phalcon_nginx_vhost)        
 [configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
 
-## Credits - inspiration ##  
+## Credits / inspiration  
 I was inspired by these great guys but wanted to do it my way and see the results with a slightly more complex testapp.    
 http://blog.onfido.com/using-cpus-elixir-on-raspberry-pi2/    
 (title is a bit misleading because also PHP with FPM uses all CPUs pretty much, but more to that in a blog post)   
