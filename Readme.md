@@ -33,6 +33,10 @@ See subdirectories for framework specific information.
 I made multiple test runs on Raspberry Pi 2 (4 cores) and some Digitalocean VMs 
 with 2 and 12 cores to check how the frameworks deal with multiple cores and concurrency.
 
+Update 2016-01-05: After changing php.ini settings (see configuration settings below) PHP frameworks where 
+able to improve by 10 - 40%. Updated test results. Would be great if we could figure out why Phoenix
+is not using all system ressources on 12-core and it get's back to an interesting first place race with Phalcon at the top.
+
 ### Testing using wrk ###
 Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this or similar command:    
 ```
@@ -50,9 +54,9 @@ get and test results can (hopefully) be reproduced and compared easier.
 
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
+| Phalcon        |            586.41  |          170.22  |         18.68  |
 | Phoenix        |            575.23  |          173.46  |         12.52  |
-| Phalcon        |            521.19  |          191.40  |         17.77  |
-| Slim (PHP 5.6) |            117.72  |          844.07  |        101.49  |
+| Slim (PHP 5.6) |            132.75  |          748.62  |        104.27  |
 | Slim (PHP 7.0) |             27.71  |        >3500.00  |        553.34  |
 
 Detailed results and specs: [results--raspberry-pi2.md](results--raspberry-pi2.md)
@@ -65,10 +69,10 @@ crown this time.
 
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
-| Phalcon        |           1452.98  |           68.22  |         16.49  |
+| Phalcon        |           1716.16  |           58.28  |         16.74  |
+| Slim (PHP 7.0) |           1394.63  |           71.26  |         13.56  |
 | Phoenix        |           1178.11  |           83.64  |         35.18  |
-| Slim (PHP 7.0) |           1160.71  |           85.52  |         12.60  |
-| Slim (PHP 5.6) |            719.81  |          138.08  |         15.72  |
+| Slim (PHP 5.6) |            693.11  |          143.40  |         20.78  |
 
 Detailed results and specs: [results--2-core-vm.md](results--2-core-vm.md)
 
@@ -87,10 +91,10 @@ something insane and quadruple the number of connections and see what happens.
 ```
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
-| Phalcon        |           8269.46  |           12.54  |          9.71  |
-| Slim (PHP 7.0) |           4937.27  |           19.75  |          8.71  |
+| Phalcon        |           9669.83  |           11.25  |         14.32  |
+| Slim (PHP 7.0) |           7162.05  |           13.44  |          3.70  |
+| Slim (PHP 5.6) |           3419.78  |           28.11  |          6.80  |
 | Phoenix *      |           3065.37  |           31.29  |          7.04  |
-| Slim (PHP 5.6) |           2619.17  |           36.95  |         11.61  |
 
 \* I don't know why yet but Phoenix (Erlang VM) somehow seem to not use the full potential 
 and resources of the VM. Even Slim (not compiled in any way) can catch up near Phoenix... see detailed results for more comments.
@@ -126,10 +130,18 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 [configs/big-machine/nginx.conf](configs/big-machine/nginx.conf)      
 [configs/big-machine/php-fpm_pool.d_www.conf](configs/big-machine/php-fpm_pool.d_www.conf)    
 
-**Common configs (Nginx vhosts used an all testsystems):**     
+**Common configs (Nginx vhosts + php.ini used an all testsystems):**     
 [configs/common/phalcon_nginx_vhost](configs/common/phalcon_nginx_vhost)        
 [configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
-[configs/common/php.ini](configs/common/php.ini) (default PHP 5.6.14 php fpm ini shipping w Debian 8.2)   
+[configs/common/php.ini](configs/common/php.ini)    
+Adding the following php.ini opcache-options improved above mentioned throughput for the PHP frameworks 
+about 10 - 20 % of improvement (+ ~40% for Slim on 12-core!). Thanks to @andresgutierrez for suggesting these tweaks.
+```
+opcache.revalidate_freq = 300
+opcache.enable_file_override = On
+```
+(Keep in mind that this revalidates opcache code only every 5 minutes, so you definetely want that option on 
+production when you want to squeeze everything out and code does not change)
 [configs/common/phpinfo.html](configs/common/phpinfo.html)   
 
 ## Credits / inspiration  

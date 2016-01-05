@@ -28,11 +28,11 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://pete-slim.pi/gallery
 Running 1m test @ http://pete-slim.pi/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   844.07ms  101.49ms   1.25s    57.28%
-    Req/Sec    31.25     18.32   118.00     66.15%
-  7072 requests in 1.00m, 12.30MB read
-Requests/sec:    117.72
-Transfer/sec:    209.70KB
+    Latency   748.62ms  104.27ms 914.31ms   70.12%
+    Req/Sec    34.25     17.73    99.00     71.34%
+  7976 requests in 1.00m, 13.87MB read
+Requests/sec:    132.75
+Transfer/sec:    236.47KB
 ```
 Yep, pretty poor, nearly 5 times slower than Elixir. Ok, PHP 7 should be twice as 
 fast, so I compiled it on the Raspberry Pi but the results where even poorer. Seems
@@ -63,11 +63,11 @@ $ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phalcon.pi/gallery
 Running 1m test @ http://pete-phalcon.pi/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   191.42ms   17.77ms 415.41ms   82.85%
-    Req/Sec   130.87     28.42   220.00     62.89%
-  31322 requests in 1.00m, 55.14MB read
-Requests/sec:    521.19
-Transfer/sec:      0.92MB
+    Latency   170.22ms   18.68ms 408.36ms   73.92%
+    Req/Sec   147.33     29.15   232.00     67.38%
+  35209 requests in 1.00m, 61.98MB read
+Requests/sec:    586.41
+Transfer/sec:      1.03MB
 ```
 This is really amazing, never thought that any PHP framework (as they are not compiled)
 will come near Phoenix, but Phalcon is even faster as it is partly compiled.    

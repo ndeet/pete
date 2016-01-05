@@ -59,11 +59,11 @@ System load: 20
 Running 1m test @ http://pete-slim.do/gallery
   12 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    36.95ms   11.61ms 238.76ms   87.53%
-    Req/Sec   219.42     33.37   313.00     84.88%
-  157347 requests in 1.00m, 276.10MB read
-Requests/sec:   2619.17
-Transfer/sec:      4.60MB
+    Latency    28.11ms    6.80ms 160.06ms   84.15%
+    Req/Sec   286.33     41.54   373.00     83.96%
+  205490 requests in 1.00m, 360.58MB read
+Requests/sec:   3419.78
+Transfer/sec:      6.00MB
 ```
 
 PHP 7.0.1        
@@ -73,11 +73,11 @@ System load: 22
 Running 1m test @ http://pete-slim.do/gallery
   12 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    19.75ms    8.71ms 248.44ms   84.13%
-    Req/Sec   413.57     85.43   660.00     69.70%
-  296579 requests in 1.00m, 527.48MB read
-Requests/sec:   4937.27
-Transfer/sec:      8.78MB
+    Latency    13.44ms    3.70ms 140.91ms   84.35%
+    Req/Sec   599.78     72.62   780.00     75.94%
+  430288 requests in 1.00m, 765.29MB read
+Requests/sec:   7162.05
+Transfer/sec:     12.74MB
 ```
 This is a really great improvement from PHP 5.6 to PHP 7 and it is even faster than Phoenix (but this should change as soon as we identify the bottleneck)
 
@@ -89,11 +89,11 @@ System load: 14-16
 Running 1m test @ http://pete-phalcon.do/gallery
   12 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    12.54ms    9.71ms 235.99ms   90.17%
-    Req/Sec   693.10    183.89     1.29k    67.45%
-  496866 requests in 1.00m, 0.86GB read
-Requests/sec:   8269.46
-Transfer/sec:     14.66MB
+    Latency    11.25ms   14.32ms 320.80ms   96.75%
+    Req/Sec   811.82    222.78     1.39k    67.51%
+  580900 requests in 1.00m, 1.01GB read
+Requests/sec:   9669.83
+Transfer/sec:     17.14MB
 ```
 The performance of the compiled Phalcon framework is really astonishing. It takes
 the crown with ease. What happens when Phalcon is compatible with PHP 7? :)    
