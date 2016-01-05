@@ -136,13 +136,13 @@ Some configs for PHP and Nginx can be found in ```configs``` directory:
 [configs/common/slim_nginx_vhost](configs/common/slim_nginx_vhost)   
 [configs/common/php.ini](configs/common/php.ini)    
 Adding the following php.ini opcache-options improved above mentioned throughput for the PHP frameworks 
-about 10 - 20 % of improvement (+ ~40% for Slim on 12-core!). Thanks to @andresgutierrez for suggesting these tweaks.
+about 10 - 20 % of improvement (+ ~40% for Slim on 12-core!). Thanks to [@andresgutierrez](https://github.com/andresgutierrez) for suggesting these tweaks.
 ```
 opcache.revalidate_freq = 300
 opcache.enable_file_override = On
 ```
 (Keep in mind that this revalidates opcache code only every 5 minutes, so you definetely want that option on 
-production when you want to squeeze everything out and code does not change)
+production when you want to squeeze everything out and code does not change)   
 [configs/common/phpinfo.html](configs/common/phpinfo.html)   
 
 ## Credits / inspiration  
