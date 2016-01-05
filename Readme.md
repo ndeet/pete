@@ -33,7 +33,8 @@ See subdirectories for framework specific information.
 I made multiple test runs on Raspberry Pi 2 (4 cores) and some Digitalocean VMs 
 with 2 and 12 cores to check how the frameworks deal with multiple cores and concurrency.
 
-Update 2016-01-05: After changing php.ini settings (see configuration settings below) PHP frameworks where 
+**Update 2016-01-05:**     
+After changing php.ini settings (see configuration settings below) PHP frameworks where 
 able to improve by 10 - 40%. Updated test results. Would be great if we could figure out why Phoenix
 is not using all system ressources on 12-core and it get's back to an interesting first place race with Phalcon at the top.
 
