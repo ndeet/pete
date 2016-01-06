@@ -41,8 +41,8 @@ is not using all system ressources on 12-core and it get's back to an interestin
 **Update 2016-01-06:**    
 Ok, the history has to be rewritten. 
 Because I used a [slow way](https://github.com/phoenixframework/phoenix/issues/1451) to 
-include the images in the template file the performance was really bad. We tracket that down 
-and now we really see the performance of Phoenix (Elixir/Erlang). I expected it to be faster
+include the images in the template file the performance was really bad. We tracked that issue down 
+and now we really see the performance of Phoenix (Elixir/Erlang). I expected Phoenix to be faster
 than PHP frameworks but that much of lead, I did not expect. Compared to the last test Phoenix speedup was 4x to 14x!
 But take a look below yourself, unbelievable fast. And the craziest thing is, no matter how much load you throw at it, it seems 
 to never return a bad request (3xx or 5xx) status code. (At least bandwidth seems to be maxed out so unable to throw more load at it :))
