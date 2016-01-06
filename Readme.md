@@ -122,7 +122,7 @@ Ok, get a bit extreme and throw 12 threads with 400 connections onto the app ser
 
 Ok, so I really want to make Phoenix throw some errors now and do something insane. 48 treads 500 connections each.    
 ```
-# ./wrk -t12 -c400 -d180s --timeout 1000   
+# ./wrk -t48 -c500 -d60s --timeout 1000   
 ```   
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
