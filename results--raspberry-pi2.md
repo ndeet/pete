@@ -9,17 +9,17 @@ PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache e
 #### Phoenix Framework (Elixir) ####
 Erlang OTP 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
 ```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-phoenix.pi:4001/gallery
+$ wrk -t4 -c100 -d60s --timeout 1000 http://pete-phoenix.pi:4001/gallery
 Running 1m test @ http://pete-phoenix.pi:4001/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   173.46ms   12.52ms 261.63ms   71.21%
-    Req/Sec   144.51     28.08   230.00     70.79%
-  34569 requests in 1.00m, 65.08MB read
-Requests/sec:    575.23
-Transfer/sec:      1.08MB
+    Latency    47.92ms   36.19ms 560.17ms   78.20%
+    Req/Sec   564.66    100.84     1.07k    75.38%
+  135067 requests in 1.00m, 259.96MB read
+Requests/sec:   2247.92
+Transfer/sec:      4.33MB
 ```
-Looks like a really good result right? Let's see how a not compiled framework like Slim Framework handles the task.
+This is really crazy, remember, this is on Raspberry Pi 2 :D
 
 #### Slim Framework (PHP) ####
 PHP 5.6.14-0+deb8u1 as FPM, Nginx 1.6.2

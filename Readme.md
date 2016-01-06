@@ -38,6 +38,15 @@ After changing php.ini settings (see configuration settings below) PHP framework
 able to improve by 10 - 40%. Updated test results. Would be great if we could figure out why Phoenix
 is not using all system ressources on 12-core and it get's back to an interesting first place race with Phalcon at the top.
 
+**Update 2016-01-06:**    
+Ok, the history has to be rewritten. 
+Because I used a [slow way](https://github.com/phoenixframework/phoenix/issues/1451) to 
+include the images in the template file the performance was really bad. We tracket that down 
+and now we really see the performance of Phoenix (Elixir/Erlang). I expected it to be faster
+than PHP frameworks but that much of lead, I did not expect. Compared to the last test Phoenix speedup was 4x to 14x!
+But take a look below yourself, unbelievable fast. And the craziest thing is, no matter how much load you throw at it, it seems 
+to never return a bad request (3xx or 5xx) status code. (At least bandwidth seems to be maxed out so unable to throw more load at it :))
+
 ### Testing using wrk ###
 Using [wrk](https://github.com/wg/wrk) as benchmarking tool with this or similar command:    
 ```
@@ -55,8 +64,8 @@ get and test results can (hopefully) be reproduced and compared easier.
 
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
+| Phoenix        |           2247.92  |           47.92  |         36.19  |
 | Phalcon        |            586.41  |          170.22  |         18.68  |
-| Phoenix        |            575.23  |          173.46  |         12.52  |
 | Slim (PHP 5.6) |            132.75  |          748.62  |        104.27  |
 | Slim (PHP 7.0) |             27.71  |        >3500.00  |        553.34  |
 
@@ -72,7 +81,7 @@ crown this time.
 | :------------- | -----------------: | ---------------: | -------------: |
 | Phalcon        |           1716.16  |           58.28  |         16.74  |
 | Slim (PHP 7.0) |           1394.63  |           71.26  |         13.56  |
-| Phoenix        |           1178.11  |           83.64  |         35.18  |
+| Phoenix        |           1347.11  |           54.47  |         16.32  |
 | Slim (PHP 5.6) |            693.11  |          143.40  |         20.78  |
 
 Detailed results and specs: [results--2-core-vm.md](results--2-core-vm.md)
@@ -92,14 +101,11 @@ something insane and quadruple the number of connections and see what happens.
 ```
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
+| Phoenix        |          38399.63  |            2.56  |          2.28  |
 | Phalcon        |           9669.83  |           11.25  |         14.32  |
 | Slim (PHP 7.0) |           7162.05  |           13.44  |          3.70  |
 | Slim (PHP 5.6) |           3419.78  |           28.11  |          6.80  |
-| Phoenix *      |           3065.37  |           31.29  |          7.04  |
 
-\* I don't know why yet but Phoenix (Erlang VM) somehow seem to not use the full potential 
-and resources of the VM. Even Slim (not compiled in any way) can catch up near Phoenix... see detailed results for more comments.
-   
    
 Ok, get a bit extreme and throw 12 threads with 400 connections onto the app server:   
 ```
@@ -107,15 +113,25 @@ Ok, get a bit extreme and throw 12 threads with 400 connections onto the app ser
 ```
 | Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
 | :------------- | -----------------: | ---------------: | -------------: |
-| Phoenix        |           3153.33  |          125.44  |         19.75  |
+| Phoenix        |          **  |          **  |         **  |
 | Phalcon        |                 -  |               -  |             -  |
 | Slim (PHP 7.0) |                 -  |               -  |             -  |
 | Slim (PHP 5.6) |                 -  |               -  |             -  |
 
-Even though Phoenix still not using all system ressources (system load 7-8) it is the
-only framework which handles all requests without error. The PHP frameworks even unable
-to handle 200 connections without erros and bad requests. So this is really a big point for
-Phoenix as the site is even with 400 connections always available and fast.
+** 2016-01-06: will need to run this test sometime again, old value was 3000 req/s but it handles now way more. See insane test below :)      
+
+Ok, so I really want to make Phoenix throw some errors now and do something insane. 48 treads 500 connections each.    
+```
+# ./wrk -t12 -c400 -d180s --timeout 1000   
+```   
+| Framework      | Throughput (req/s) | Latency avg (ms) |     Stdev (ms) |
+| :------------- | -----------------: | ---------------: | -------------: |
+| Phoenix        |          41162.79  |          43.55  |         111.75  |
+| Phalcon        |                 -  |               -  |             -  |
+| Slim (PHP 7.0) |                 -  |               -  |             -  |
+| Slim (PHP 5.6) |                 -  |               -  |             -  |
+
+This is just outstanding, take a look at the details below and look at the response times etc.
 
 Detailed results, specs and comments: [results--12-core-vm.md](results--12-core-vm.md)
 

@@ -10,16 +10,21 @@ PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache e
 #### Phoenix Framework (Elixir) ####
 Erlang OTP 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
 ```
-$ wrk -t4 -c100 -d60s --timeout 2000 http://pete-slim.do/gallery
-Running 1m test @ http://pete-slim.do/gallery
+$ wrk -t4 -c100 -d60s --timeout 1000 http://46.101.218.114:4001/gallery
+Running 1m test @ http://46.101.218.114:4001/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   143.40ms   20.78ms 472.62ms   79.73%
-    Req/Sec   174.25     30.13   242.00     68.78%
-  41635 requests in 1.00m, 73.06MB read
-Requests/sec:    693.11
-Transfer/sec:      1.22MB
+    Latency    54.47ms   16.32ms 580.91ms   93.88%
+    Req/Sec   339.40    149.28   600.00     53.77%
+  80967 requests in 1.00m, 155.84MB read
+  Socket errors: connect 0, read 64, write 0, timeout 0
+Requests/sec:   1347.11
+Transfer/sec:      2.59MB
 ```
+
+Here we clearly see that Phoenix really plays well with more cores, with 2-cores 
+it gets even less req/s through than on the Raspberry Pi with 4-cores and only half of the RAM. 
+
 
 #### Slim Framework (PHP) ####
 PHP 5.6.14-0+deb8u1 as FPM, Nginx 1.6.2
