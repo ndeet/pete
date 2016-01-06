@@ -10,6 +10,8 @@ defmodule PetePhoenix.Router do
   end
 
   scope "/", PetePhoenix do
+    pipe_through :browser # Use the default browser stack
+
     get "/", PageController, :index
     resources "gallery", GalleryController, only: [:index, :show]
   end
