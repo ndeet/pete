@@ -10,7 +10,7 @@ PHP Stack: PHP 5.6.14-0-deb8u1, PHP 7.0.1 (self compiled), as PHP-FPM, OPcache e
 #### Phoenix Framework (Elixir) ####
 Erlang OTP 18.2.1, Elixir 1.2.0, Phoenix 1.1.0   
 ```
-$ wrk -t4 -c100 -d60s --timeout 1000 http://46.101.218.114:4001/gallery
+$ wrk -t4 -c100 -d60s --timeout 1000 http://pete-phoenix.do:4001/gallery
 Running 1m test @ http://pete-phoenix.do:4001/gallery
   4 threads and 100 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
