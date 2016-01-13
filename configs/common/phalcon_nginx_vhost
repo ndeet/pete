@@ -33,7 +33,7 @@ server {
       fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
       fastcgi_intercept_errors on;
 	  fastcgi_pass unix:/var/run/php5-fpm.sock;
-	  ## PHP 7 fpm socket. Commented as we use the PHP 5 socket above.
+	  ## PHP 7 fpm socket. Commented as we use the PHP 5 socket above. # No PHP7 support yet for Phalcon.
 	  #fastcgi_pass unix:/var/run/php7-fpm.sock;
 
 	  ## Used TCP connection before but ran into open ports issue. You will need
