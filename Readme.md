@@ -171,3 +171,6 @@ http://www.littlelines.com/blog/2014/07/08/elixir-vs-ruby-showdown-phoenix-vs-ra
 
 Followup to above mentioned comparison but extended to Go, Ruby, NodeJS frameworks:   
 https://github.com/mroth/phoenix-showdown      
+
+
+License: [MIT](https://opensource.org/licenses/MIT)
