@@ -1,0 +1,36 @@
+{{ define "app" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Performance Test: Phalcon Framework</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+<div class="container">
+  <header class="header">
+    <nav role="navigation">
+      <a href="http://github.com/ndeet/pete">This project on Github</a>
+    </nav>
+  </header>
+
+  <main role="main">
+    {{ template "gallery" . }}
+  </main>
+
+  <footer>
+    All PeTe projects on Github:
+    <a href="https://github.com/ndeet/tree/master/phoenix">Pete Phoenix</a> |
+    <a href="https://github.com/ndeet/tree/master/slim">Pete Slim</a> |
+    <a href="https://github.com/ndeet/tree/master/phalcon">Pete Phalcon</a>
+  </footer>
+</div>
+</body>
+</html>
+{{ end }}
