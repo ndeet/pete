@@ -1,0 +1,10 @@
+{{ define "gallery"}}
+<div class="headline">
+  <h1>PeTe Gallery</h1>
+</div>
+<div class="gallery-container">
+  {{ range $key, $value := . }}
+    {{ template "image" . }}
+  {{ end }}
+</div>
+{{ end }}
